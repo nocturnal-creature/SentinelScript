@@ -16,11 +16,10 @@ class SentinelHandler(FileSystemEventHandler):
 
     def on_created(self, event):
         if not event.is_directory:
-            log_event(f"[NEW FILE] {event.src_path}", self.log_file)
-
+            log_event(f"New file created: {event.src_path}", self.log_file, "WARNING")
     def on_deleted(self, event):
         if not event.is_directory:
-            log_event(f"[DELETED] {event.src_path}", self.log_file)
+            log_event(f"File deleted: {event.src_path}", self.log_file, "CRITICAL")
 
     def check_file(self, filepath):
         baseline = load_baseline(self.baseline_file)
@@ -30,7 +29,7 @@ class SentinelHandler(FileSystemEventHandler):
             if baseline[filepath] != current_hash:
                 log_event(f"File modified: {filepath}", self.log_file, "CRITICAL")
         else:
-            log_event(f"[UNKNOWN FILE] {filepath}", self.log_file)
+            log_event(f"Unknown file detected: {filepath}", self.log_file, "WARNING")
 
 def start_monitoring(directory, baseline_file, log_file):
     event_handler = SentinelHandler(baseline_file, log_file)
@@ -47,4 +46,5 @@ def start_monitoring(directory, baseline_file, log_file):
         observer.stop()
 
     observer.join()
+
 
