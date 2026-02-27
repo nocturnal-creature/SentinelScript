@@ -28,7 +28,7 @@ class SentinelHandler(FileSystemEventHandler):
 
         if filepath in baseline:
             if baseline[filepath] != current_hash:
-                log_event(f"[MODIFIED] {filepath}", self.log_file)
+                log_event(f"File modified: {filepath}", self.log_file, "CRITICAL")
         else:
             log_event(f"[UNKNOWN FILE] {filepath}", self.log_file)
 
@@ -47,3 +47,4 @@ def start_monitoring(directory, baseline_file, log_file):
         observer.stop()
 
     observer.join()
+
