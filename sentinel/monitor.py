@@ -48,7 +48,8 @@ def start_monitoring(directory, baseline_file, log_file):
 
     observer.join()
     if not os.path.exists(baseline_file):
-    print("Baseline missing! Generate baseline first.")
+        print("Baseline missing! Generate baseline first.")
     return
+
 
 
