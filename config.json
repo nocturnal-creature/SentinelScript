@@ -1,0 +1,5 @@
+{
+    "monitor_directory": "test_folder",
+    "baseline_file": "baseline.json",
+    "log_file": "logs.txt"
+}
