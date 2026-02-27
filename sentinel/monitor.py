@@ -1,3 +1,4 @@
+import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from .hashing import calculate_hash
@@ -46,5 +47,8 @@ def start_monitoring(directory, baseline_file, log_file):
         observer.stop()
 
     observer.join()
+    if not os.path.exists(baseline_file):
+    print("Baseline missing! Generate baseline first.")
+    return
 
 
